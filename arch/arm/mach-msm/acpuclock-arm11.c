@@ -129,35 +129,16 @@ static struct clkctl_acpu_speed  msm72xx_tbl[] = {
 #if defined(CONFIG_TURBO_MODE)
 	{ 19200, ACPU_PLL_TCXO, 0, 0, 19200, 0, VDD_0, 30720, 0, 0, 4 },
 	{ 122880, ACPU_PLL_0, 4, 1, 61440, 1, VDD_3, 61440, 0, 0, 4 },
-#if 1 /* QCT fixup */
-	{ 160000, ACPU_PLL_1, 1, 5, 53333, 2, VDD_3, 61440, 0, 0, 6 },
-#else /* Google */
-	{ 160000, ACPU_PLL_1, 1, 5, 64000, 1, VDD_3, 61440, 0, 0, 6 },
-#endif
+	{ 128000, ACPU_PLL_1, 1, 5, 64000, 1, VDD_3, 61440, 0, 0, 6 },
 	{ 176000, ACPU_PLL_2, 2, 5, 88000, 1, VDD_3, 61440, 0, 0, 5 },
 	{ 245760, ACPU_PLL_0, 4, 0, 81920, 2, VDD_4, 61440, 0, 0, 5 },
 	{ 352000, ACPU_PLL_2, 2, 2, 88000, 3, VDD_5, 128000, 0, 3, 7 },
-#if 1 /* QCT fixup */
 	{ 480000, ACPU_PLL_1, 1, 1, 120000, 3, VDD_6, 120000, 0, 2, -1 },
-#else /* Google */
-	{ 480000, ACPU_PLL_1, 1, 1, 128000, 2, VDD_6, 160000, 0, 2, -1 },
-#endif
 	{ 518400, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x1a },
-	{ 537600, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x1b },
-	{ 556800, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x1c },
 	{ 576000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x1d },
-	{ 595200, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x1e },
 	{ 614400, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x20 },
-	{ 633600, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x21 },
 	{ 652800, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x22 },
-	{ 672000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x23 },
 	{ 691200, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x24 },
-	{ 710400, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x25 },
-	{ 729600, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x26 },
-	{ 748800, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x27 },
-	{ 768000, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x28 },
-/*unstable TODO adjust memory divider to increase oc freq*/
-//	{ 786800, ACPU_PLL_2, 2, 1, 132000, 3, VDD_7, 160000, 0, 5, -1, 0x29 },
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 #else
 	{ 19200, ACPU_PLL_TCXO, 0, 0, 19200, 0, VDD_0, 30720, 0, 0, 4 },
@@ -186,33 +167,29 @@ static struct cpufreq_frequency_table msm7227_freq_table[] = {
 
 static struct cpufreq_frequency_table msm72xx_freq_table[] = {
 #if defined(CONFIG_TURBO_MODE)
-//	{ 0, 19200 },
-	{ 0, 122880 },
-	{ 1, 160000 },
-	{ 2, 245760 },
-	{ 3, 480000 },
-	{ 4, 518400 },
-	{ 5, 537600 },
-        { 6, 556800 },
-        { 7, 576000 },
-        { 8, 595200 },
+	{ 0, 19200 },
+	{ 1, 122880 },
+	{ 2, 128000 },
+	{ 3, 176000 },
+	{ 4, 245760 },
+        { 5, 352000 },
+        { 6, 480000 },
+        { 7, 518400 },
+        { 8, 576000 },
         { 9, 614400 },
-        { 10, 633600 },
-        { 11, 652800 },
-        { 12, 672000 },
-        { 13, 691200 },
-        { 14, 710400 },
-/*TODO*/
-//        { 19, 787200 },
-        { 19, CPUFREQ_TABLE_END },
+        { 10, 652800 },
+        { 11, 691200 },
+        { 12, CPUFREQ_TABLE_END }
 #else
 	{ 0, 19200 },
 	{ 1, 122880 },
 	{ 2, 128000 },
-	{ 3, 245760 },
-	{ 4, 384000 },
-	{ 5, 528000 },
-	{ 6, CPUFREQ_TABLE_END },
+	{ 3, 176000 },
+	{ 4, 245760 },
+	{ 5, 352000 },
+	{ 6, 384000 },
+	{ 7, 528000 },
+	{ 8, CPUFREQ_TABLE_END },
 #endif
 };
 #endif
@@ -471,7 +448,7 @@ int acpuclk_set_rate(unsigned long rate, enum setrate_reason reason)
 
 	/* Set wait states for CPU inbetween frequency changes */
 	reg_clkctl = readl(A11S_CLK_CNTL_ADDR);
-	reg_clkctl |= (100 << 16); /* set WT_ST_CNT */
+	reg_clkctl |= (100 << 14); /* set WT_ST_CNT */
 	writel(reg_clkctl, A11S_CLK_CNTL_ADDR);
 
 	if (acpu_debug_mask & PERF_SWITCH_DEBUG)
